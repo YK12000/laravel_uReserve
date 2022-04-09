@@ -12,6 +12,8 @@ class Calendar extends Component
     public $currentDate;
     public $currentWeek;
     public $day;
+    public $checkDay;
+    public $dayOfWeek;
     public $sevenDaysLater;
     public $events;
 
@@ -28,7 +30,13 @@ class Calendar extends Component
 
         for($i = 0;$i < 7 ; $i++){
             $this->day = CarbonImmutable::today()->addDay($i)->format('m月d日');
-            array_push($this->currentWeek,$this->day);
+            $this->checkDay = CarbonImmutable::today()->addDay($i)->format('Y-m-d');
+            $this->dayOfWeek = CarbonImmutable::today()->addDay($i)->dayName;
+            array_push($this->currentWeek,[
+                'day' => $this->day,
+                'checkDay' => $this->checkDay,
+                'dayOfWeek' => $this->dayOfWeek
+            ]);
         }
 
         // dd($this->currentWeek);
@@ -47,7 +55,13 @@ class Calendar extends Component
 
         for($i = 0;$i < 7 ; $i++){
             $this->day = CarbonImmutable::parse($this->currentDate)->addDay($i)->format('m月d日');
-            array_push($this->currentWeek,$this->day);
+            $this->checkDay = CarbonImmutable::parse($this->currentDate)->addDay($i)->format('Y-m-d');
+            $this->dayOfweek = CarbonImmutable::parse($this->currentDate)->addDay($i)->dayName;
+            array_push($this->currentWeek,[
+                'day' => $this->day,
+                'checkDay' => $this->checkDay,
+                'dayOfWeek' => $this->dayOfWeek
+            ]);
         }
 
     }
